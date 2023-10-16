@@ -21,7 +21,9 @@
                             <hr>
                             <h6>Menu categories</h6>
 
-                            <a href="#" class="btn btn-success float-right m-1">
+                            {% if categories %}
+
+                            <a href="{% url 'add_food' %}" class="btn btn-success float-right m-1">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 &nbsp;
                                 Add Food
@@ -49,7 +51,7 @@
                                             </a>
                                             &nbsp;
                                             <a href="{% url 'delete_category' cat.id %}"
-                                                onclick="return confirm('Are you sure you want delete this category')">
+                                                onclick="return confirm('Are you sure you want delete this category?')">
                                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -58,6 +60,16 @@
                                 </tbody>
                             </table>
                             <!-- END TABLE -->
+                            {% else %}
+                            <h5 class="text-center">No category found.</h5>
+                            <div class="text-center">
+                                <a href="{% url 'add_category' %}" class="btn btn-success">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    Add Category
+                                </a>
+                            </div>
+                            {% endif %}
+
 
 
                         </div>
