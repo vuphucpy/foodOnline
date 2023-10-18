@@ -38,7 +38,10 @@ def v_profile(request):
         # check data
         if profile_form.is_valid() and vendor_form.is_valid():
             profile_form.save()
-            vendor_form.save()
+            vendor = vendor_form.save(commit=False)
+            vendor_name = vendor_form.cleaned_data['vendor_name']
+            vendor.vendor_slug = slugify(vendor_name)
+            vendor.save()
 
             # message
             messages.success(request, 'Settings Updated.')
