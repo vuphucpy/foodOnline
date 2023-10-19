@@ -4,7 +4,9 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from vendor.models import Vendor
+from datetime import date, datetime
+
+from vendor.models import Vendor, OpeningHour
 
 from menu.models import Category, FoodItem
 
@@ -36,6 +38,16 @@ def vendor_detail(request, vendor_slug):
         )
     )
 
+    # get opening hours
+    opening_hours = OpeningHour.objects.filter(
+        vendor=vendor).order_by('day', '-from_hour')
+
+    # check current day's opening hours
+    today_date = date.today()
+    today = today_date.isoweekday()
+    current_opening_hours = OpeningHour.objects.filter(
+        vendor=vendor, day=today)
+
     # check user
     if request.user.is_authenticated:
         # get cart items
@@ -47,6 +59,8 @@ def vendor_detail(request, vendor_slug):
         'vendor': vendor,
         'categories': categories,
         'cart_items': cart_items,
+        'opening_hours': opening_hours,
+        'current_opening_hours': current_opening_hours,
     }
 
     return render(request, 'marketplace/vendor_detail.html', context)

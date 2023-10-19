@@ -31,6 +31,7 @@ def get_cart_amounts(request):
     subtotal = 0
     tax = 0
     total = 0
+    grand_total = 0
 
     if request.user.is_authenticated:
         # get cart items
