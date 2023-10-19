@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Prefetch
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from vendor.models import Vendor
 
@@ -202,3 +203,25 @@ def delete_cart(request, cart_id):
                 'status': 'Failed',
                 'message': 'Invalid request',
             })
+
+
+# search
+def search(request):
+    keyword = request.GET['restaurant_name']
+
+    # get vendor ids that has the food item the user is looking for
+    fetch_vendor_by_food_items = FoodItem.objects.filter(
+        food_title__icontains=keyword, is_available=True).values_list('vendor', flat=True)
+
+    # get vendor
+    vendors = Vendor.objects.filter(Q(id__in=fetch_vendor_by_food_items) | Q(
+        vendor_name__icontains=keyword, is_approved=True, user__is_active=True))
+    # vendor count
+    vendor_count = vendors.count()
+
+    context = {
+        'vendors': vendors,
+        'vendor_count': vendor_count,
+    }
+
+    return render(request, 'marketplace/listings.html', context)
