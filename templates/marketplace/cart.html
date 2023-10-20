@@ -90,7 +90,6 @@
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
                                 <div class="menu-itam-holder">
-
                                     <!--  -->
                                     <div>
                                         <ul>
@@ -101,13 +100,20 @@
                                                     <span id="subtotal">{{subtotal}}</span>
                                                 </span>
                                             </li>
+
+                                            {% for key, value in tax_dict.items %}
+                                            {% for i,j in value.items %}
                                             <li style="list-style-type: none;">
-                                                Tax
+                                                {{key}} <small>({{i}})%</small>
                                                 <span class="price float-right">
                                                     <span class="currency">$</span>
-                                                    <span id="tax">{{tax}}</span>
+                                                    <span id="tax-{{key}}">{{j}}</span>
                                                 </span>
                                             </li>
+                                            {% endfor %}
+                                            {% endfor %}
+
+
                                             <li style="list-style-type: none; font-weight: 600;">
                                                 TOTAL
                                                 <span class="price float-right">
@@ -117,7 +123,6 @@
                                             </li>
                                         </ul>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
