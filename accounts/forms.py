@@ -27,9 +27,8 @@ class UserForm(forms.ModelForm):
                 'Password does not match!'
             )
 
+
 # User profile forms
-
-
 class UserProfileForm(forms.ModelForm):
     profile_picture = forms.FileField(
         widget=forms.FileInput(attrs={'class': 'btn btn-info'}), validators=[allow_only_images_validator])
@@ -40,3 +39,10 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['profile_picture', 'cover_photo',
                   'address', 'country', 'state', 'city', 'pin_code']
+
+
+# User info form
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'phone_number']
