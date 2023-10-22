@@ -31,3 +31,42 @@ table > tbody > tr > td{
 .btn.btn-success,add_hour{
     padding: 7px 15px;
 }
+
+.menu-itam-list .qty-holder{
+    top: 50%;
+    position: absolute;
+    right: 15%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    line-height: 0;
+    display: block;
+    margin-top: -10px;
+}
+
+.menu-itam-list .price-holder span.qty{
+    font-size: 14px;
+    color: #2f313a;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: middle;
+}
+
+/* hide radio button */
+.payment-method [type=radio]{
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Image style */
+.payment-method [type=radio] + img{
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Checked style */
+.payment-method [type=radio]:checked + img{
+    outline: 2px solid #ff0000;
+}
