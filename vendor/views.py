@@ -12,6 +12,8 @@ from accounts.views import check_role_vendor
 from menu.models import Category, FoodItem
 from menu.forms import CategoryForm, FoodItemForm
 
+from orders.models import Order, OrderedFood
+
 from .forms import VendorForm, OpeningHoursForm
 from .models import Vendor, OpeningHour
 
@@ -349,3 +351,40 @@ def remove_opening_hours(request, pk=None):
                 'id': pk,
                 'message': 'This opening hour was deleted successfully!'
             })
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def my_orders(request):
+    # # get vendor
+    vendor = Vendor.objects.get(user=request.user)
+    # get orders
+    orders = Order.objects.filter(
+        vendors__in=[vendor.id], is_ordered=True).order_by('-created_at')
+
+    context = {
+        'orders': orders,
+    }
+
+    return render(request, 'vendor/my_orders.html', context)
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def order_details(request, order_number):
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_food = OrderedFood.objects.filter(
+            order=order, food_item__vendor=get_vendor(request))
+
+        context = {
+            'order': order,
+            'ordered_food': ordered_food,
+            'subtotal': order.get_total_by_vendor()['subtotal'],
+            'tax_data': order.get_total_by_vendor()['tax_dict'],
+            'grand_total': order.get_total_by_vendor()['grand_total'],
+        }
+
+        return render(request, 'vendor/order_details.html', context)
+    except:
+        return redirect('vendor')

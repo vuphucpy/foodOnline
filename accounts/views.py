@@ -6,6 +6,8 @@ from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.template.defaultfilters import slugify
 
+import datetime
+
 from vendor.forms import VendorForm
 from vendor.models import Vendor
 
@@ -264,10 +266,34 @@ def custDashboard(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
+    # get vendor
     vendor = Vendor.objects.get(user=request.user)
+    # get orders
+    orders = Order.objects.filter(
+        vendors__in=[vendor.id], is_ordered=True).order_by('-created_at')
+    recent_orders = orders[:5]
+
+    # current month's revenue
+    current_month = datetime.datetime.now().month
+    current_month_orders = orders.filter(
+        vendors__in=[vendor.id], created_at__month=current_month)
+
+    # total month
+    current_month_revenue = 0
+    for i in current_month_orders:
+        current_month_revenue += i.get_total_by_vendor()['grand_total']
+
+    # total revenue
+    total_revenue = 0
+    for i in orders:
+        total_revenue += i.get_total_by_vendor()['grand_total']
 
     context = {
         'vendor': vendor,
+        'order_count': orders.count(),
+        'recent_orders': recent_orders,
+        'total_revenue': total_revenue,
+        'current_month_revenue': current_month_revenue,
     }
 
     return render(request, 'accounts/vendorDashboard.html', context)
