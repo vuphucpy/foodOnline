@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
-    'django-foodonline-env.eba-zfi9krpv.us-west-2.elasticbeanstalk.com']
+    'django-foodOnline-env.eba-dqwyzru2.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
