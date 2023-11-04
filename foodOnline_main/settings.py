@@ -27,8 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    'django-foodOnline-env.eba-92pnzv2k.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -95,13 +94,20 @@ WSGI_APPLICATION = 'foodOnline_main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config('ENGINE'),
+#         'NAME': config('NAME_DB'),
+#         'USER': config('USER_DB'),
+#         'PASSWORD': config('PASSWORD_DB'),
+#         'HOST': config('HOST'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': config('ENGINE'),
-        'NAME': config('NAME_DB'),
-        'USER': config('USER_DB'),
-        'PASSWORD': config('PASSWORD_DB'),
-        'HOST': config('HOST'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
