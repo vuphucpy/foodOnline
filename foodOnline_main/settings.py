@@ -95,17 +95,6 @@ WSGI_APPLICATION = 'foodOnline_main.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': config('ENGINE'),
-#         'NAME': config('NAME_DB'),
-#         'USER': config('USER_DB'),
-#         'PASSWORD': config('PASSWORD_DB'),
-#         'HOST': config('HOST'),
-#     }
-# }
-
 # Database Configuration
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
@@ -125,13 +114,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 AUTH_USER_MODEL = 'accounts.User'
 
