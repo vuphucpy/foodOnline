@@ -87,7 +87,7 @@ def menu_builder(request):
 # food items by category
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
-def fooditems_by_category(request, pk=None):
+def food_items_by_category(request, pk=None):
     # get data
     vendor = get_vendor(request)
     category = get_object_or_404(Category, pk=pk)
@@ -97,11 +97,11 @@ def fooditems_by_category(request, pk=None):
         vendor=vendor, category=category).order_by('created_at')
 
     context = {
-        'fooditems': foodItems,
+        'food_items': foodItems,
         'category': category,
     }
 
-    return render(request, 'vendor/fooditems_by_category.html', context)
+    return render(request, 'vendor/food_items_by_category.html', context)
 
 
 # add category
@@ -200,7 +200,7 @@ def add_food(request):
             food.save()
             # message
             messages.success(request, 'Food item added successfully!')
-            return redirect('fooditems_by_category', food.category.id)
+            return redirect('food_items_by_category', food.category.id)
         else:
             print(form.errors)
     else:
@@ -236,7 +236,7 @@ def edit_food(request, pk=None):
             food.save()
             # message
             messages.success(request, 'Food item updated successfully!')
-            return redirect('fooditems_by_category', food.category.id)
+            return redirect('food_items_by_category', food.category.id)
         else:
             print(form.errors)
     else:
@@ -263,7 +263,7 @@ def delete_food(request, pk=None):
     food.delete()
     # message
     messages.success(request, 'Food item deleted successfully!')
-    return redirect('fooditems_by_category', food.category.id)
+    return redirect('food_items_by_category', food.category.id)
 
 
 @login_required(login_url='login')
