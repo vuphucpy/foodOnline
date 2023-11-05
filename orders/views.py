@@ -187,7 +187,7 @@ def payments(request):
 
                 context = {
                     'order': order,
-                    'to_email': i.food_item.vendor.user.email,
+                    'to_email': to_emails,
                     'ordered_food_to_vendor': ordered_food_to_vendor,
                     'vendor_subtotal': order_total_by_vendor(order, i.food_item.vendor.id)['subtotal'],
                     'tax_data': order_total_by_vendor(order, i.food_item.vendor.id)['tax_dict'],
