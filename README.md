@@ -47,8 +47,8 @@ FoodOnline is an eCommerce application built with Python Django Framework. Some 
 [Template design by Chimpstudio](https://themeforest.net/item/food-bakery-restaurant-bakery-responsive-wordpress-theme/18970331?gclid=Cj0KCQiAuqKqBhDxARIsAFZELmJMaDoOtTxJlQqkJEJynRUiIvbFVZczUOFf8YVMomeOVbzUNXKsVIYaAtsHEALw_wcB)
 
 ## Demo
-User Account: vuphucegg47@gmail.com / Password: Gettingstarted#47
-Vendor Account: vuphucjava@gmail.com / Password: Gettingstarted#47
-Vendor Account: vuphucpy47@gmail.com / Password: Gettingstarted#47
-Admin Account: admin@gmail.com / Password: Gettingstarted#47
-Payment Account: vuphucegg47@gmail.com / Password: Gettingstarted#47
+1. User Account: vuphucegg47@gmail.com / Password: Gettingstarted#47
+2. Vendor Account: vuphucjava@gmail.com / Password: Gettingstarted#47
+3. Vendor Account: vuphucpy47@gmail.com / Password: Gettingstarted#47
+4. Admin Account: admin@gmail.com / Password: Gettingstarted#47
+5. Payment Account: vuphucegg47@gmail.com / Password: Gettingstarted#47
